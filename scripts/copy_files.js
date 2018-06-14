@@ -21,7 +21,8 @@
 // on each developer's box.
 module.exports = function(context){
   var filestocopy = [{
-      "resources/android/res/xml/app_restrictions.xml" : "platforms/android/res/xml/app_restrictions.xml"
+      "resources/android/res/xml/app_restrictions.xml" : "platforms/android/res/xml/app_restrictions.xml",
+      "resources/android/res/xml/app_restrictions.xml" : "platforms/android/app/src/res/xml/app_restrictions.xml" // supports new structure of Android project
   } ];
 
   // no need to configure below
@@ -34,9 +35,9 @@ module.exports = function(context){
           var val = obj[key];
           var srcfile = path.join(rootdir, key);
           var destfile = path.join(rootdir, val);
-          console.log("copying "+srcfile+" to "+destfile);
           var destdir = path.dirname(destfile);
           if (fs.existsSync(srcfile) && fs.existsSync(destdir)) {
+              console.log("copying "+srcfile+" to "+destfile);
               fs.createReadStream(srcfile).pipe(
                  fs.createWriteStream(destfile));
           }
